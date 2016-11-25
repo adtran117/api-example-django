@@ -91,3 +91,10 @@ ENV/
 .ropeproject
 
 db.sqlite3
+
+# dependencies
+node_modules
+
+# webpack bundle
+assets/bundles
+webpack-stats.json
