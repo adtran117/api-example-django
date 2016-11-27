@@ -98,3 +98,7 @@ node_modules
 # webpack bundle
 assets/bundles
 webpack-stats.json
+
+# oauth client id & secret
+drchrono/config.py
+drchrono/config.pyc
