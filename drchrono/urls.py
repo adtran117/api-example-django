@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^auth/drchrono/handleAuthCode/', views.handleAuthCode),
     url(r'^api/getPatients', views.getPatients),
     url(r'^api/getUserInfo', views.getUserInfo),
+    url(r'^api/validateCheckInUser', views.validateCheckInUser),
+    url(r'^api/updatePatientDemo', views.updatePatientDemo),
     # url(r'^api/test/', views.testingCookies),
     url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]

@@ -1,16 +1,6 @@
 import React from 'react';
 import NavBar from './components/NavBar'
 
-// let Main = (props) => (
-//   <div>
-//     <div>
-//       <NavBar />
-//       {props.children}
-//     </div>
-//   </div>
-
-// )
-
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -21,16 +11,14 @@ class Main extends React.Component {
   }
 
     componentDidMount () {
-      // if(this.state.username !== null) {
         $.ajax({
           method: 'GET',
-          url: 'api/getUserInfo'
+          url: 'api/getUserInfo',
         }).done((data) => {
           console.log(data);
           data = JSON.parse(data);
           this.setState({username: data});
         })
-      // } 
     }
 
   render() {

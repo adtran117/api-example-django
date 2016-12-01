@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['.drchrono.com', '.drchrono.com.']
 
+SECURE_SSL_REDIRECT = False
+
 
 # Application definition
 
@@ -129,6 +131,7 @@ STATIC_URL = '/static/'
 # Andy added this
 REACT_ROUTES = [
     'dashboard',
+    'checkin',
 ]
 
 #Andy added the 2 lines below

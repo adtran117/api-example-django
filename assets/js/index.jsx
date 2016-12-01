@@ -5,6 +5,7 @@ import $ from 'jquery';
 import App from './App';
 import LandingPageView from './views/LandingPageView'
 import DashboardView from './views/DashboardView'
+import CheckInView from './views/CheckInView'
 
 function isAuthenticated() {
   $.ajax({
@@ -22,6 +23,7 @@ render((
     <Route component={App}>
       <Route onEnter={isAuthenticated} path='/' component={LandingPageView} />
       <Route onEnter={isAuthenticated} path='/dashboard' component={DashboardView} />
+      <Route onEnter={isAuthenticated} path='/checkin' component={CheckInView} />
     </Route>
   </Router>
 ), document.getElementById('container'));
