@@ -11,7 +11,7 @@ class FormContainer extends React.Component {
     super(props)
     this.state = {
       patientExists: false,
-      currentPatientId: null,
+      currentPatientInfo: null,
       patientLookupFail: false
     }
     console.log(props)
@@ -30,13 +30,9 @@ class FormContainer extends React.Component {
         url: 'api/validateCheckInUser',
         data: {first_name: firstName, last_name: lastName}
       }).done((data) => {
-        console.log(data)
         data = JSON.parse(data);
-        console.log(data);
-        if(data !== false) {
-          this.setState({patientExists: true, currentPatientId: data});
-        }
-      }).fail(() => {
+        this.setState({patientExists: true, currentPatientInfo: data});
+      }).fail((data) => {
         this.setState({patientLookupFail: true});
       });
     }
@@ -48,7 +44,10 @@ class FormContainer extends React.Component {
         zip_code: document.getElementById('zip_code').value,
         home_phone: document.getElementById('homephone').value,
         address: document.getElementById('streetaddress').value,
-        patient_id: this.state.currentPatientId,
+        patient_id: this.state.currentPatientInfo.patient_id,
+        first_name: this.state.currentPatientInfo.first_name,
+        last_name: this.state.currentPatientInfo.last_name,
+        appointment_id: this.state.currentPatientInfo.appointment_id,
       }
 
       $.ajax({
@@ -58,6 +57,7 @@ class FormContainer extends React.Component {
       }).done((data) => {
         if (data === '204') {
           console.log('success!')
+          // this.setState({currentPatientInfo: null})
           this.props.completedCheckIn();
         }
       })
@@ -77,7 +77,7 @@ class FormContainer extends React.Component {
             </div>
             <div className="card-action">
               <a href="#" className="submitBtn" onClick={this.handleSubmit.bind(this)}>Submit</a>
-              {this.state.patientLookupFail ?  <a className='white-text red'>Invalid patient or patient does not have a valid appointment</a> : <a></a>}
+              {this.state.patientLookupFail ?  <a className='white-text red'>Invalid patient or no valid appointment or already checked in</a> : <a></a>}
             </div>
           </div>
         </div>
