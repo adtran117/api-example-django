@@ -5,8 +5,10 @@ class DashboardView extends React.Component {
   render() {
     return(
       <div>
-        <h1> No Birthdays today</h1>
-        <PatientTable />
+        <div className='container'>
+          <h1 className='header center light-green-text'>Today's Appointments</h1>
+          <PatientTable />
+        </div>
       </div>
     );
   }

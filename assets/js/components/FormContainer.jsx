@@ -12,10 +12,14 @@ class FormContainer extends React.Component {
     this.state = {
       patientExists: false,
       currentPatientId: null,
+      patientLookupFail: false
     }
     console.log(props)
   }
 
+  clearFail(){
+    this.setState({patientLookupFail: false})
+  }
 
   handleSubmit(event) {
     if (this.state.patientExists === false) {
@@ -26,11 +30,14 @@ class FormContainer extends React.Component {
         url: 'api/validateCheckInUser',
         data: {first_name: firstName, last_name: lastName}
       }).done((data) => {
+        console.log(data)
         data = JSON.parse(data);
         console.log(data);
         if(data !== false) {
           this.setState({patientExists: true, currentPatientId: data});
         }
+      }).fail(() => {
+        this.setState({patientLookupFail: true});
       });
     }
 
@@ -66,10 +73,11 @@ class FormContainer extends React.Component {
           <div className="card blue-grey darken-1">
             <div className="card-content white-text">
               <span className="card-title">Check In</span>
-              {this.state.patientExists ? <DemographicForms /> : <Forms />}
+              {this.state.patientExists ? <DemographicForms /> : <Forms clearFail={this.clearFail.bind(this)} />}
             </div>
             <div className="card-action">
               <a href="#" className="submitBtn" onClick={this.handleSubmit.bind(this)}>Submit</a>
+              {this.state.patientLookupFail ?  <a className='white-text red'>Invalid patient or patient does not have a valid appointment</a> : <a></a>}
             </div>
           </div>
         </div>
